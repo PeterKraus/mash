@@ -8,7 +8,7 @@ import logging
 import export
 import glazer
 
-_VERSION = 1
+_VERSION = 2
 
 def getRadius(el, charge, coord, mode="only"):
     radii = mendeleev.element(el).ionic_radii
@@ -40,7 +40,8 @@ def getMultiplicity(Ar, Br, cells = 1):
             if nd <= 3 and r.spin == "HS":
                 nel = nd
             elif nd <= 3 and r.spin == "LS":
-                raise ValueError(f"What the fuck is this? {el} {charge} {coord}")
+                raise ValueError(f"What the fuck is this? {el} " + \
+                                 f"{charge} {coord}")
             elif nd <= 5 and r.spin == "HS":
                 nel = nd
             elif nd <= 6 and r.spin == "LS":
@@ -60,10 +61,15 @@ def parseArgs():
     parser.add_argument('perovskite', help=""" Structural formula of the 
                                                perovskite to be treated, i.e.
                                                [LaMnO3] or [LiMgF3] """)
-    parser.add_argument('--otype', help="Output type: [cif, xyz, cp2k]", default=False)
-    parser.add_argument('--ofile', help="Output file prefix", default=False)
-    parser.add_argument('--debug', help="Switch loggin from info to debug level", 
-                                   action='store_const', const=True, default=False)
+    parser.add_argument('--otype',
+                        help="Output type: [cif, xyz, cp2k]",
+                        default=False)
+    parser.add_argument('--ofile',
+                        help="Output file prefix",
+                        default=False)
+    parser.add_argument('--debug',
+                        help="Switch loggin from info to debug level", 
+                        action='store_const', const=True, default=False)
     
     args = parser.parse_args()
     
@@ -99,9 +105,11 @@ def deduceABX(name):
     
 def tToφ(t):
     if t < 1.01 and t >= 0.86:
-        logging.debug(f"t-factor {t:6.3f} is between 0.86 and 1.0, φ is reliable")
+        logging.debug(f"t-factor {t:6.3f} is between 0.86 and 1.0, " + \
+                       "φ is reliable")
     else:
-        logging.warning(f"t-factor {t:6.3f} is outside 0.86 and 1.0, φ is unreliable")
+        logging.warning(f"t-factor {t:6.3f} is outside 0.86 and 1.0, " + \
+                         "φ is unreliable")
     return -1.19406040899e9*t**7 \
            +7.70723000557e9*t**6 \
            -2.13128428874e10*t**5 \
@@ -197,13 +205,16 @@ def main():
         comp["_VER"] = _VERSION
         logging.debug(f'Candidate {comp["tag"]}')
         comp["M"] = getMultiplicity(comp["Ar"], comp["Br"], cells = 4)
-        comp["τ"] = comp["Xr"].ionic_radius / comp["Br"].ionic_radius - comp["Ar"].charge * \
-                    (comp["Ar"].charge - (comp["Ar"].ionic_radius/comp["Br"].ionic_radius) / \
-                                 math.log(comp["Ar"].ionic_radius/comp["Br"].ionic_radius))
+        comp["τ"] = comp["Xr"].ionic_radius / comp["Br"].ionic_radius \
+                    - comp["Ar"].charge * (comp["Ar"].charge \
+                    - (comp["Ar"].ionic_radius/comp["Br"].ionic_radius) / \
+                    math.log(comp["Ar"].ionic_radius/comp["Br"].ionic_radius))
         if comp["τ"] < 4.18:
-            logging.debug(f'With τ = {comp["τ"]:5.3f}, this could be a perovskite')
+            logging.debug(f'With τ = {comp["τ"]:5.3f}, ' + \
+                           'this could be a perovskite')
         else:
-            logging.warning(f'With τ = {comp["τ"]:5.3f}, this is not likely a perovskite')
+            logging.warning(f'With τ = {comp["τ"]:5.3f}, ' + \
+                             'this is not likely a perovskite')
             continue
         comp["t"] = (comp["Ar"].ionic_radius + comp["Xr"].ionic_radius) / \
                     (math.sqrt(2) * (comp["Br"].ionic_radius + comp["Xr"].ionic_radius))
@@ -215,8 +226,10 @@ def main():
             comp["Glazer"] = "a-b+a-"
             gls = glazer.ambpam
         comp.update(gls.getCellVectors(comp["d"], φ = comp["φ"]))
-        comp.update(gls.getSuperCell(comp["A"], comp["B"], comp["X"], φ = comp["φ"]))
-        outputHandler(comps.index(comp), comp, ofile = args.ofile, otype = args.otype)
+        comp.update(gls.getSuperCell(comp["A"], comp["B"], comp["X"],
+                                     φ = comp["φ"]))
+        outputHandler(comps.index(comp), comp,
+                      ofile = args.ofile, otype = args.otype)
         
 if __name__ == "__main__":
     main()

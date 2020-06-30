@@ -1,24 +1,24 @@
 import math 
 
-def getAs(el, u = 0, v = 0):
-    return [[el,  u,  0.25, v],
-            [el, 0.5-u, 0.25, v+0.5],
-            [el, -u, 0.75, -v],
-            [el, -(0.5-u)+1, 0.75, -(v+0.5)+1]]
+def getAs(el, x = 0, z = 0):
+    return [[el,  x,  0.25, z],
+            [el, 0.5-x, 0.75, z+0.5],
+            [el, -x, 0.75, -z],
+            [el, x+0.5, 0.25, -z+0.5]]
             
 def getBs(el):
-    return [[el, 0.5, 0.0, 0.0],
-            [el, 0.5, 0.5, 0.0],
-            [el, 0.0, 0.0, 0.5],
-            [el, 0.0, 0.5, 0.5]]
+    return [[el, 0.0, 0.0, 0.5],
+            [el, 0.5, 0.0, 0.0],
+            [el, 0.0, 0.5, 0.5],
+            [el, 0.5, 0.5, 0.0]]
 
 def getX1s(el, φ = 0):
     x = (math.cos(φ)**2 - 1)/(2 * math.cos(φ)**2 + 4)
     z = (math.sqrt(3) + math.tan(φ)) / math.sqrt(12)
-    return [[el, x, 0.25, z],
-            [el, 0.5-x, 0.25, z+0.5-1],
+    return [[el,  x,  0.25, z],
+            [el, 0.5-x, 0.75, z+0.5-1],
             [el, -x, 0.75, -z+1],
-            [el, -(0.5-x)+1, 0.75, -(z+0.5)+1]]
+            [el, x+0.5, 0.25, -z+0.5]]
     
 def getX2s(el, φ = 0):
     x = (2 - math.sqrt(3)*math.sin(φ)*math.cos(φ)+math.cos(φ)**2) / (8 + 4*math.cos(φ)**2)

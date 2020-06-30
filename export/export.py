@@ -33,6 +33,7 @@ def compToCIF(comp):
         
 def compToCP2K(comp):
     lines = []
+    lines.append(f'! mash v.{comp["_VER"]:02d}: {comp["tag"]};{comp["a"]:9.6f}x{comp["b"]:9.6f}x{comp["c"]:9.6f};{comp["M"]}-tet; {comp["Glazer"]}')
     lines.append(f'&GLOBAL')
     lines.append(f'  PROJECT {comp["A"]}{comp["B"]}{comp["X"]}3')
     lines.append(f'  RUN_TYPE CELL_OPT')
