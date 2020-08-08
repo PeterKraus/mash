@@ -1,8 +1,7 @@
-import math 
+import math
+import wyckoff
 
 def getA1s(el):
-    #return [[el, 0, 0, 0],
-    #        [el, 0.5, 0.5, 0.5]]
     return [[el, 0, 0, 0],
             [el, 0.5, 0.5, 0.5]]
 

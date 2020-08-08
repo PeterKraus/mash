@@ -129,8 +129,6 @@ def deduceAnion(name):
     else:
         raise ValueError(f'{name} not a common X')
 
-
-
 def arTorom(n):
     conv = [[1000, 'M'], [900, 'CM'], [500, 'D'], [400, 'CD'],
             [ 100, 'C'], [ 90, 'XC'], [ 50, 'L'], [ 40, 'XL'],
@@ -162,6 +160,11 @@ def outputHandler(compid, comp, ofile=False, otype=False):
             lines = export.compToCP2K(comp)
             logging.debug(f'Writing {fileprefix+".inp"}')
             with open(fileprefix + ".inp", "w") as outfile:
+                outfile.write("\n".join(lines))
+        if otype in ["qe", "all"]:
+            lines = export.compToQE(comp)
+            logging.debug(f'Writing {fileprefix+".qin"}')
+            with open(fileprefix + ".qin", "w") as outfile:
                 outfile.write("\n".join(lines))
     
 def main():
