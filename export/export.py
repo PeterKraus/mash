@@ -1,3 +1,15 @@
+import mendeleev
+
+def _getElMass(elname):
+    el = mendeleev.element(elname)
+    abu = 0.0
+    for iso in el.isotopes:
+        if isinstance(iso.abundance, float) and iso.abundance > abu:
+            mass = iso.mass
+    return mass
+    
+
+
 def compToXYZ(comp):
     lines = []
     lines.append(f' {len(comp["atoms"])}')
@@ -130,3 +142,55 @@ def compToCP2K(comp):
     lines.append(f'  &END CELL_OPT')
     lines.append(f'&END MOTION')
     return lines    
+
+def compToQE(comp):
+    lines = []
+    lines.append( "&CONTROL")
+    lines.append( " calculation  = 'vc-relax',")
+    lines.append(f" prefix       = '{comp['A']}{comp['B']}{comp['X']}3',")
+    lines.append( " pseudo_dir   = '/scratch/f97/pk0399/sssp/SSSP_1.1_PBE_efficiency/',")
+    lines.append( " outdir       = './tmp',")
+    lines.append( "/")
+    lines.append( "&SYSTEM")
+    lines.append( " ibrav = 8,")
+    lines.append(f" A = {comp['a']:13.9f},")
+    lines.append(f" B = {comp['b']:13.9f},")
+    lines.append(f" C = {comp['c']:13.9f},")
+    lines.append(f" nat = {len(comp['atoms']):3d},")
+    lines.append( " ntyp = 3,")
+    lines.append( " ecutwfc = 65.0,")   # SSSP_1.1_efficiency for Mn
+    lines.append( " ecutrho = 780.0,")  # SSSP_1.1_efficiency for Mn
+    lines.append( " occupations = 'smearing',")
+    lines.append( " smearing = 'gauss',")
+    lines.append( " degauss = 0.02,")
+    lines.append( " FUNCTIONAL_DATA ")
+    #lines.append( " input_dft = 'PBE',")
+    #lines.append( " vdw_corr = 'dft-d3',")
+    #lines.append( " dftd3_version = 4,") # D3(BJ)
+    lines.append( " nspin = 2,")
+    lines.append(f" tot_magnetization = {comp['M'] - 1:3d},")
+    lines.append( "/")
+    lines.append( "&ELECTRONS")
+    lines.append( " mixing_mode = 'plain',")
+    lines.append( " mixing_beta = 0.3,")
+    lines.append( " startingwfc = 'atomic',")
+    lines.append( " conv_thr = 1.0d-8")
+    lines.append( "/")
+    lines.append( "&IONS")
+    lines.append( " ion_dynamics = 'bfgs',")
+    lines.append( "/")
+    lines.append( "&CELL")
+    lines.append( " cell_dynamics = 'bfgs',")
+    lines.append( " press_conv_thr = 1,")
+    lines.append( " cell_dofree = 'ibrav',")
+    lines.append( "/")
+    lines.append( "ATOMIC_SPECIES")
+    lines.append(f" {comp['A']:2s} {_getElMass(comp['A']):7.3f} {comp['A']}.upf ")
+    lines.append(f" {comp['B']:2s} {_getElMass(comp['B']):7.3f} {comp['B']}.upf ")
+    lines.append(f" {comp['X']:2s} {_getElMass(comp['X']):7.3f} {comp['X']}.upf ")
+    lines.append( "ATOMIC_POSITIONS crystal")
+    for at in comp["atoms"]:
+        lines.append(f'{at[0]:2s} {at[1]:13.9f} {at[2]:13.9f} {at[3]:13.9f}')
+    lines.append( "K_POINTS automatic")
+    lines.append( "3 4 3 0 0 0")
+    return(lines)
