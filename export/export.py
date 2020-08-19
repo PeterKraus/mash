@@ -9,7 +9,6 @@ def _getElMass(elname):
     return mass
     
 
-
 def compToXYZ(comp):
     lines = []
     lines.append(f' {len(comp["atoms"])}')
@@ -26,9 +25,9 @@ def compToCIF(comp):
     lines.append(f'_cell_length_a {comp["a"]:10.7f}')
     lines.append(f'_cell_length_b {comp["b"]:10.7f}')
     lines.append(f'_cell_length_c {comp["c"]:10.7f}')
-    lines.append(f'_cell_angle_alpha 90')
-    lines.append(f'_cell_angle_beta  90')
-    lines.append(f'_cell_angle_gamma 90')
+    lines.append(f'_cell_angle_alpha {comp.get("α", 90):3d}')
+    lines.append(f'_cell_angle_beta  {comp.get("β", 90):3d}')
+    lines.append(f'_cell_angle_gamma {comp.get("γ", 90):3d}')
     lines.append(f'loop_')
     lines.append(f'    _atom_site_label')
     lines.append(f'    _atom_site_type_symbol')
@@ -148,14 +147,18 @@ def compToQE(comp):
     lines.append( "&CONTROL")
     lines.append( " calculation  = 'vc-relax',")
     lines.append(f" prefix       = '{comp['A']}{comp['B']}{comp['X']}3',")
-    lines.append( " pseudo_dir   = '/scratch/f97/pk0399/sssp/SSSP_1.1_PBE_efficiency/',")
+    lines.append( " PSEUDO_DATA")
     lines.append( " outdir       = './tmp',")
     lines.append( "/")
     lines.append( "&SYSTEM")
-    lines.append( " ibrav = 8,")
     lines.append(f" A = {comp['a']:13.9f},")
     lines.append(f" B = {comp['b']:13.9f},")
     lines.append(f" C = {comp['c']:13.9f},")
+    if comp.get("γ", 90) == 90:
+        lines.append( " ibrav = 8,")
+    elif comp.get("γ") == 120:
+        lines.append( " ibrav = -5,")
+        lines.append( " cosAB = -0.5,")
     lines.append(f" nat = {len(comp['atoms']):3d},")
     lines.append( " ntyp = 3,")
     lines.append( " ecutwfc = 65.0,")   # SSSP_1.1_efficiency for Mn
@@ -164,9 +167,6 @@ def compToQE(comp):
     lines.append( " smearing = 'gauss',")
     lines.append( " degauss = 0.02,")
     lines.append( " FUNCTIONAL_DATA ")
-    #lines.append( " input_dft = 'PBE',")
-    #lines.append( " vdw_corr = 'dft-d3',")
-    #lines.append( " dftd3_version = 4,") # D3(BJ)
     lines.append( " nspin = 2,")
     lines.append(f" tot_magnetization = {comp['M'] - 1:3d},")
     lines.append( "/")

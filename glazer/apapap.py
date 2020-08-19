@@ -2,62 +2,34 @@ import math
 import wyckoff
 
 def getA1s(el):
-    return [[el, 0, 0, 0],
-            [el, 0.5, 0.5, 0.5]]
+    ret = []
+    wpos = wyckoff.positions.Im3_204(2, "a", 0, 0, 0)
+    for pos in wpos:
+        ret.append([el] + wyckoff.wrap.toCell(pos))
+    return ret
 
 def getA2s(el):
-    return [[el, 0, 0.5, 0.5],
-            [el, 0.5, 0, 0.5],
-            [el, 0.5, 0.5, 0],
-            [el, 0.5, 0, 0],
-            [el, 0, 0.5, 0],
-            [el, 0, 0, 0.5]]
+    ret = []
+    wpos = wyckoff.positions.Im3_204(6, "b", 0, 0, 0)
+    for pos in wpos:
+        ret.append([el] + wyckoff.wrap.toCell(pos))
+    return ret
             
 def getBs(el):
-    #return [[el, 0.25, 0.25, 0.25],
-    #        [el, 0.25, 0.25, 0.75],
-    #        [el, 0.25, 0.75, 0.25],
-    #        [el, 0.25, 0.75, 0.75],
-    #        [el, 0.75, 0.25, 0.25],
-    #        [el, 0.75, 0.25, 0.75],
-    #        [el, 0.75, 0.75, 0.25],
-    #        [el, 0.75, 0.75, 0.75]]
-    return [[el, 0.25, 0.25, 0.25],
-            [el, 0.75, 0.75, 0.25],
-            [el, 0.75, 0.25, 0.75],
-            [el, 0.25, 0.75, 0.75],
-            [el, 0.75, 0.75, 0.75],
-            [el, 0.25, 0.25, 0.75],
-            [el, 0.25, 0.75, 0.25],
-            [el, 0.75, 0.25, 0.25]] 
+    ret = []
+    wpos = wyckoff.positions.Im3_204(8, "c", 0, 0, 0)
+    for pos in wpos:
+        ret.append([el] + wyckoff.wrap.toCell(pos))
+    return ret
 
 def getXs(el, φ = 0):
     y = (3*math.cos(φ) + math.sqrt(3)*math.sin(φ))/(8 * math.cos(φ) + 4)
     z = (3*math.cos(φ) - math.sqrt(3)*math.sin(φ))/(8 * math.cos(φ) + 4)
-    return [[el, 0, y, z],
-            [el, 0, 1-y, z],
-            [el, 0, y, 1-z],
-            [el, 0, 1-y, 1-z],
-            [el, z, 0, y],
-            [el, z, 0, 1-y],
-            [el, 1-z, 0, y],
-            [el, 1-z, 0, 1-y],
-            [el, y, z, 0],
-            [el, 1-y, z, 0],
-            [el, y, 1-z, 0],
-            [el, 1-y, 1-z, 0],
-            [el, 0.5, y+0.5, z+0.5],
-            [el, 0.5, -y+0.5, z+0.5],
-            [el, 0.5, y+0.5, -z+0.5],
-            [el, 0.5, -y+0.5, -z+0.5],
-            [el, z+0.5, 0.5, y+0.5],
-            [el, z+0.5, 0.5, -y+0.5],
-            [el, -z+0.5, 0.5, y+0.5],
-            [el, -z+0.5, 0.5, -y+0.5],
-            [el, y+0.5, z+0.5, 0.5],
-            [el, -y+0.5, z+0.5, 0.5],
-            [el, y+0.5, -z+0.5, 0.5],
-            [el, -y+0.5, -z+0.5, 0.5]]
+    ret = []
+    wpos = wyckoff.positions.Im3_204(24, "g", 0, y, z)
+    for pos in wpos:
+        ret.append([el] + wyckoff.wrap.toCell(pos))
+    return ret
             
     
 

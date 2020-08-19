@@ -224,10 +224,14 @@ def main():
         comp["φ°"] = tToφ(comp["t"])
         comp["φ"] = math.radians(comp["φ°"])
         comp["d"] = comp["Br"].ionic_radius + comp["Xr"].ionic_radius
+        #if True:
+        #    logging.debug("Assuming orthorhombic cell with a-b+a- tilting")
+        #    comp["Glazer"] = "a-b+a-"
+        #    gls = glazer.ambpam
         if True:
-            logging.debug("Assuming orthorhombic cell with a-b+a- tilting")
-            comp["Glazer"] = "a-b+a-"
-            gls = glazer.ambpam
+            logging.debug("Assuming orthorhombic cell with a-a-a- tilting")
+            comp["Glazer"] = "a-a-a-"
+            gls = glazer.amamam
         comp.update(gls.getCellVectors(comp["d"], φ = comp["φ"]))
         comp.update(gls.getSuperCell(comp["A"], comp["B"], comp["X"],
                                      φ = comp["φ"]))

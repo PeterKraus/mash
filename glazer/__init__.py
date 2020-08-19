@@ -1,2 +1,1 @@
-from . import ambpam
-from . import apapap
+from . import ambpam, apapap, amamam

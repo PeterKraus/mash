@@ -52,5 +52,33 @@ def Im3_204(multiplicity, letter, x, y, z):
             ret.append(i)
             ret.append([i[0] + 0.5, i[1] + 0.5, i[2] + 0.5])
     return ret
-    
+
+def R3c_167(multiplicity, letter, x, y, z):
+    if multiplicity == 36 and letter == "f":
+        zero = [[x, y, z], [-y, x-y, z], [-x+y, -x, z], [y, x, -z+0.5],
+                [x-y, -y -z+0.5], [-x, -x+y, -z+0.5], [-x, -y, -z], [y, -x+y, -z],
+                [x-y, x, -z], [-y, -x, z+0.5], [-x+y, y, z+0.5], [x, x-y, z+0.5]]
+    elif multiplicity == 18 and letter == "e":
+        zero = [[x, 0.0, 0.25], [0.0, x, 0.25], [-x, -x, 0.25],
+                [-x, 0.0, 0.75], [0.0, -x, 0.75], [x, x, 0.75]]
+    elif multiplicity == 18 and letter == "d":
+        zero = [[0.5, 0.0, 0.0], [0.0, 0.5, 0.0],
+                [0.5, 0.5, 0.0], [0.0, 0.5, 0.5],
+                [0.5, 0.0, 0.5], [0.5, 0.5, 0.5]]
+    elif multiplicity == 12 and letter == "c":
+        zero = [[0.0, 0.0, z], [0.0, 0.0, -z+0.5],
+                [0.0, 0.0, -z], [0.0, 0.0, z+0.5]]
+    elif multiplicity == 6 and letter == "b":
+        zero = [[0.0, 0.0, 0.0], [0.0, 0.0, 0.5]]
+    elif multiplicity == 6 and letter == "a":
+        zero = [[0.0, 0.0, 0.25], [0.0, 0.0, 0.75]]
+
+    ret = []
+    if zero is not None:
+        for i in zero:
+            ret.append(i)
+            ret.append([i[0] + 2.0/3.0, i[1] + 1.0/3.0, i[2] + 1.0/3.0])
+            ret.append([i[0] + 1.0/3.0, i[1] + 2.0/3.0, i[2] + 2.0/3.0])
+    return ret
+        
     
