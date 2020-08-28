@@ -62,14 +62,17 @@ def parseArgs():
                                                perovskite to be treated, i.e.
                                                [LaMnO3] or [LiMgF3] """)
     parser.add_argument('--otype',
-                        help="Output type: [cif, xyz, cp2k]",
+                        help="Output type: [cif, xyz, cp2k, qe]",
                         default=False)
     parser.add_argument('--ofile',
                         help="Output file prefix",
                         default=False)
     parser.add_argument('--debug',
-                        help="Switch loggin from info to debug level", 
+                        help="Switch logging from info to debug level", 
                         action='store_const', const=True, default=False)
+    parser.add_argument('--glazer',
+                        help="Request a certain tilt mode: [none, a-a-a-, a+a+a+, a-b+a-]",
+                        default="none")
     
     args = parser.parse_args()
     
@@ -224,14 +227,23 @@ def main():
         comp["φ°"] = tToφ(comp["t"])
         comp["φ"] = math.radians(comp["φ°"])
         comp["d"] = comp["Br"].ionic_radius + comp["Xr"].ionic_radius
-        #if True:
-        #    logging.debug("Assuming orthorhombic cell with a-b+a- tilting")
-        #    comp["Glazer"] = "a-b+a-"
-        #    gls = glazer.ambpam
-        if True:
-            logging.debug("Assuming orthorhombic cell with a-a-a- tilting")
-            comp["Glazer"] = "a-a-a-"
+        
+        if args.glazer == "none":
+            celltype = "cubic"
+            comp["φ"] = 0
+            gls = glazer.none
+        elif args.glazer == "a-a-a-":
+            celltype = "rhombohedral"
             gls = glazer.amamam
+        elif args.glazer == "a+a+a+":
+            celltype = "cubic"
+            gls = glazer.apapap
+        elif args.glazer == "a-b+a-":
+            celltype = "orthorhombic"
+            gls = glazer.ambpam
+        
+        
+        logging.debug(f"Assuming {celltype} supercell with {args.glazer} tilting")
         comp.update(gls.getCellVectors(comp["d"], φ = comp["φ"]))
         comp.update(gls.getSuperCell(comp["A"], comp["B"], comp["X"],
                                      φ = comp["φ"]))

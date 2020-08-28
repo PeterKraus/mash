@@ -80,5 +80,70 @@ def R3c_167(multiplicity, letter, x, y, z):
             ret.append([i[0] + 2.0/3.0, i[1] + 1.0/3.0, i[2] + 1.0/3.0])
             ret.append([i[0] + 1.0/3.0, i[1] + 2.0/3.0, i[2] + 2.0/3.0])
     return ret
-        
-    
+
+def Pm3m_221(multiplicity, letter, x, y, z):
+    if multiplicity == 48 and letter == "n":
+        return [[x,y,z], [-x,-y,z], [-x,y,-z], [x,-y,-z],
+               [z,x,y], [z,-x,-y], [-z,-x,y], [-z,x,-y],
+               [y,z,x], [-y,z,-x], [y,-z,-x], [-y,-z,x],
+               [y,x,-z], [-y,-x,-z], [y,-x,z], [-y,x,z],
+               [x,z,-y], [-x,z,y], [-x,-z,-y], [x,-z,y],
+               [z,y,-x], [z,-y,x], [-z,y,x], [-z,-y,-x],
+               [-x,-y,-z], [x,y,-z], [x,-y,z], [-x,y,z],
+               [-z,-x,-y], [-z,x,y], [z,x,-y], [z,-x,y],
+               [-y,-z,-x], [y,-z,x], [-y,z,x], [y,z,-x],
+               [-y,-x,z], [y,x,z], [-y,x,-z], [y,-x,-z],
+               [-x,-z,y], [x,-z,-y], [x,z,y], [-x,z,-y],
+               [-z,-y,x], [-z,y,-x], [z,-y,-x], [z,y,x]]
+    elif multiplicity == 24 and letter == "m":
+        return [[x,x,z], [-x,-x,z], [-x,x,-z], [x,-x,-z],
+                [z,x,x], [z,-x,-x], [-z,-x,x], [-z,x,-x],
+                [x,z,x], [-x,z,-x], [x,-z,-x], [-x,-z,x],
+                [x,x,-z], [-x,-x,-z], [x,-x,z], [-x,x,z],
+                [x,z,-x], [-x,z,x], [-x,-z,-x], [x,-z,x],
+                [z,x,-x], [z,-x,x], [-z,x,x], [-z,-x,-x]]
+    elif multiplicity == 24 and letter == "l":
+        return [[0.5,y,z], [0.5,-y,z], [0.5,y,-z], [0.5,-y,-z],
+                [z,0.5,y], [z,0.5,-y], [-z,0.5,y], [-z,0.5,-y],
+                [y,z,0.5], [-y,z,0.5], [y,-z,0.5], [-y,-z,0.5],
+                [y,0.5,-z], [-y,0.5,-z], [y,0.5,z], [-y,0.5,z],
+                [0.5,z,-y], [0.5,z,y], [0.5,-z,-y], [0.5,-z,y],
+                [z,y,0.5], [z,-y,0.5], [-z,y,0.5], [-z,-y,0.5]]
+    elif multiplicity == 24 and letter == "l":
+        return [[0.0,y,z], [0.0,-y,z], [0.0,y,-z], [0.0,-y,-z],
+                [z,0.0,y], [z,0.0,-y], [-z,0.0,y], [-z,0.0,-y],
+                [y,z,0.0], [-y,z,0.0], [y,-z,0.0], [-y,-z,0.0],
+                [y,0.0,-z], [-y,0.0,-z], [y,0.0,z], [-y,0.0,z],
+                [0.0,z,-y], [0.0,z,y], [0.0,-z,-y], [0.0,-z,y],
+                [z,y,0.0], [z,-y,0.0], [-z,y,0.0], [-z,-y,0.0]]
+    elif multiplicity == 12 and letter == "j":
+        return [[0.5,y,y], [0.5,-y,y], [0.5,y,-y], [0.5,-y,-y],
+                [y,0.5,y], [y,0.5,-y], [-y,0.5,y], [-y,0.5,-y],
+                [y,y,0.5], [-y,y,0.5], [y,-y,0.5], [-y,-y,0.5]]
+    elif multiplicity == 12 and letter == "i":
+        return [[0.0,y,y], [0.0,-y,y], [0.0,y,-y], [0.0,-y,-y],
+                [y,0.0,y], [y,0.0,-y], [-y,0.0,y], [-y,0.0,-y],
+                [y,y,0.0], [-y,y,0.0], [y,-y,0.0], [-y,-y,0.0]]
+    elif multiplicity == 12 and letter == "h":
+        return [[x,0.5,0.0], [-x,0.5,0.0], [0.0,x,0.5], [0.0,-x,0.5],
+                [0.5,0.0,x], [0.5,0.0,-x], [0.5,x,0.0], [0.5,-x,0.0],
+                [x,0.0,0.5], [-x,0.0,0.5], [0.0,0.5,-x], [0.0,0.5,x]]
+    elif multiplicity == 8 and letter == "g":
+        return [[x,x,x], [-x,-x,x], [-x,x,-x], [x,-x,-x],
+                [x,x,-x], [-x,-x,-x], [x,-x,x], [-x,x,x]]
+    elif multiplicity == 6 and letter == "f":
+        return [[x,0.5,0.5], [-x,0.5,0.5], [0.5,x,0.5], 
+                [0.5,-x,0.5], [0.5,0.5,x], [0.5,0.5,-x]]
+    elif multiplicity == 6 and letter == "e":
+        return [[x,0.0,0.0], [-x,0.0,0.0], [0.0,x,0.0],
+                [0.0,-x,0.0], [0.0,0.0,x], [0.0,0.0,-x]]
+    elif multiplicity == 3 and letter == "d":
+        return [[0.5,0.0,0.0], [0.0,0.5,0.0], [0.0,0.0,0.5]]
+    elif multiplicity == 3 and letter == "c":
+        return [[0.0,0.5,0.5], [0.5,0.0,0.5], [0.5,0.5,0.0]]
+    elif multiplicity == 1 and letter == "b":
+        return [[0.5,0.5,0.5]]
+    elif multiplicity == 1 and letter == "a":
+        return [[0.0,0.0,0.0]]
+    else:
+        raise

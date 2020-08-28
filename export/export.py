@@ -145,10 +145,10 @@ def compToCP2K(comp):
 def compToQE(comp):
     lines = []
     lines.append( "&CONTROL")
-    lines.append( " calculation  = 'vc-relax',")
+    lines.append( " CALCULATION_DATA")
     lines.append(f" prefix       = '{comp['A']}{comp['B']}{comp['X']}3',")
     lines.append( " PSEUDO_DATA")
-    lines.append( " outdir       = './tmp',")
+    lines.append( " OUTDIR")
     lines.append( "/")
     lines.append( "&SYSTEM")
     lines.append(f" A = {comp['a']:13.9f},")
@@ -175,6 +175,7 @@ def compToQE(comp):
     lines.append( " mixing_beta = 0.3,")
     lines.append( " startingwfc = 'atomic',")
     lines.append( " conv_thr = 1.0d-8")
+    lines.append( " ELECTRON_DATA")
     lines.append( "/")
     lines.append( "&IONS")
     lines.append( " ion_dynamics = 'bfgs',")
