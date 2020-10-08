@@ -210,7 +210,7 @@ def main():
                       f'({comp["X"]}({arTorom(abs(comp["Xr"].charge))}-))3'
         comp["_VER"] = _VERSION
         logging.debug(f'Candidate {comp["tag"]}')
-        comp["M"] = getMultiplicity(comp["Ar"], comp["Br"], cells = 4)
+        
         comp["τ"] = comp["Xr"].ionic_radius / comp["Br"].ionic_radius \
                     - comp["Ar"].charge * (comp["Ar"].charge \
                     - (comp["Ar"].ionic_radius/comp["Br"].ionic_radius) / \
@@ -232,15 +232,21 @@ def main():
             celltype = "cubic"
             comp["φ"] = 0
             gls = glazer.none
+            ncells = 1
         elif args.glazer == "a-a-a-":
             celltype = "rhombohedral"
             gls = glazer.amamam
+            ncells = 6
         elif args.glazer == "a+a+a+":
             celltype = "cubic"
             gls = glazer.apapap
+            ncells = 8
         elif args.glazer == "a-b+a-":
             celltype = "orthorhombic"
             gls = glazer.ambpam
+            ncells = 4
+        
+        comp["M"] = getMultiplicity(comp["Ar"], comp["Br"], cells = ncells)
         
         
         logging.debug(f"Assuming {celltype} supercell with {args.glazer} tilting")

@@ -157,7 +157,7 @@ def compToQE(comp):
     if comp.get("γ", 90) == 90:
         lines.append( " ibrav = 8,")
     elif comp.get("γ") == 120:
-        lines.append( " ibrav = -5,")
+        lines.append( " ibrav = 4,")
         lines.append( " cosAB = -0.5,")
     lines.append(f" nat = {len(comp['atoms']):3d},")
     lines.append( " ntyp = 3,")
