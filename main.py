@@ -205,6 +205,7 @@ def main():
                                   
     logging.debug('Filtering compositions based on τ:')
     for comp in comps:
+        comp["Glazer"] = args.glazer
         comp["tag"] = f'{comp["A"]}({arTorom(abs(comp["Ar"].charge))}+)' + \
                       f'{comp["B"]}({arTorom(abs(comp["Br"].charge))}+)' + \
                       f'({comp["X"]}({arTorom(abs(comp["Xr"].charge))}-))3'
