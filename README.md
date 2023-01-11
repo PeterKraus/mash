@@ -1,6 +1,9 @@
-# `mash` version 1.0
-A program for generating guess structures of ABX<sub>3</sub> perovskites. Inspired by `SPuDS` by Lufaso and Woodward, 
-[[1]](https://doi.org/10.1107/S0108768101015282) but worse - hence `mash`. This program has been developed by P. Kraus as part of *Computational workflows for novel materials* by P. Kraus, P. Raiteri and J. Gale.
+# `mash`: get guess structures of perovskites 
+
+A program for generating guess structures of ABX<sub>3</sub> perovskites. Inspired by `SPuDS` by 
+[Lufaso and Woodward](https://doi.org/10.1107/S0108768101015282), but worse - hence `mash`. [Version `1.0`](https://doi.org/10.5281/zenodo.7492808) of this program has been developed by P. Kraus as part of [*Computational workflows for novel materials*](https://doi.org/10.26434/chemrxiv-2023-tjt21) by P. Kraus, P. Raiteri and J. Gale. 
+
+[![Zenodo](https://zenodo.org/badge/DOI/10.5281/zenodo.7492808.svg)](https://doi.org/10.5281/zenodo.7492808)
 
 ## Installation
 
