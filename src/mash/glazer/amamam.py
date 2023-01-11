@@ -1,5 +1,5 @@
 import math
-import wyckoff
+from .. import wyckoff
 
 
 def getAs(el):
