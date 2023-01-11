@@ -1,4 +1,3 @@
-
 def toCell(data):
     wrapped = []
     for pos in data:
