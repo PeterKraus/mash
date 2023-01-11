@@ -151,14 +151,21 @@ def compToQE(comp):
     lines.append( " OUTDIR")
     lines.append( "/")
     lines.append( "&SYSTEM")
-    lines.append(f" A = {comp['a']:13.9f},")
-    lines.append(f" B = {comp['b']:13.9f},")
-    lines.append(f" C = {comp['c']:13.9f},")
-    if comp.get("γ", 90) == 90:
-        lines.append( " ibrav = 8,")
-    elif comp.get("γ") == 120:
-        lines.append( " ibrav = 4,")
+    nkeys = len({"a", "b", "c", "γ"}.intersection(comp.keys()))
+    if nkeys == 4:
+        lines.append( " ibrav = 12,")
+        lines.append(f" A = {comp['a']:13.9f},")
+        lines.append(f" B = {comp['b']:13.9f},")
+        lines.append(f" C = {comp['c']:13.9f},")
         lines.append( " cosAB = -0.5,")
+    elif nkeys == 3:
+        lines.append( " ibrav = 8,")
+        lines.append(f" A = {comp['a']:13.9f},")
+        lines.append(f" B = {comp['b']:13.9f},")
+        lines.append(f" C = {comp['c']:13.9f},")
+    elif nkeys == 1:
+        lines.append( " ibrav = 1,")
+        lines.append(f" A = {comp['a']:13.9f},")
     lines.append(f" nat = {len(comp['atoms']):3d},")
     lines.append( " ntyp = 3,")
     lines.append( " ecutwfc = 65.0,")   # SSSP_1.1_efficiency for Mn

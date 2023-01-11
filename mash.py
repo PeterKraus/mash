@@ -113,6 +113,7 @@ def tToφ(t):
     else:
         logging.warning(f"t-factor {t:6.3f} is outside 0.86 and 1.0, " + \
                          "φ is unreliable")
+        t = max(min(t, 1.0), 0.86)
     return -1.19406040899e9*t**7 \
            +7.70723000557e9*t**6 \
            -2.13128428874e10*t**5 \
@@ -178,7 +179,7 @@ def main():
     _X = {"el": _ABX["X"]}
     _X["r"] = getRadius(_X["el"], deduceAnion(_X["el"]), 'II')
     if _X["r"].charge == -2:
-        Qcombs = [[3,3], [2,4]]
+        Qcombs = [[3,3], [2,4], [1,5]]
     else:
         Qcombs = [[1,2]]
     comps = []
@@ -248,7 +249,6 @@ def main():
             ncells = 4
         
         comp["M"] = getMultiplicity(comp["Ar"], comp["Br"], cells = ncells)
-        
         
         logging.debug(f"Assuming {celltype} supercell with {args.glazer} tilting")
         comp.update(gls.getCellVectors(comp["d"], φ = comp["φ"]))

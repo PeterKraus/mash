@@ -39,8 +39,6 @@ def getSuperCell(A, B, X, φ = 0):
 
 def getCellVectors(d, φ = 0):
     ret = {
-        "a": d/100 * ((8 * math.cos(φ) + 4)/3),
-        "b": d/100 * ((8 * math.cos(φ) + 4)/3),
-        "c": d/100 * ((8 * math.cos(φ) + 4)/3)
+        "a": d/100 * ((8 * math.cos(φ) + 4)/3)
     }
     return ret

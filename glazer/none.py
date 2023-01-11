@@ -1,4 +1,3 @@
-import math
 import wyckoff
 
 def getAs(el):
@@ -29,8 +28,6 @@ def getSuperCell(A, B, X, φ = 0):
 
 def getCellVectors(d, φ = 0):
     ret = {
-        "a": d/100,
-        "b": d/100,
-        "c": d/100
+        "a": 2*d/100,
     }
     return ret
