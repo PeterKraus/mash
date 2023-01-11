@@ -35,7 +35,6 @@ setuptools.setup(
     install_requires=[
         "mendeleev",
     ],
-    extras_require={
-    },
+    extras_require={},
     entry_points={"console_scripts": ["mash=mash:main"]},
 )
