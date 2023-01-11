@@ -5,8 +5,7 @@ import os
 import argparse
 import logging
 
-import export
-import glazer
+from . import export, glazer
 
 _VERSION = 2
 
@@ -305,7 +304,3 @@ def main():
         comp.update(gls.getCellVectors(comp["d"], φ=comp["φ"]))
         comp.update(gls.getSuperCell(comp["A"], comp["B"], comp["X"], φ=comp["φ"]))
         outputHandler(comps.index(comp), comp, ofile=args.ofile, otype=args.otype)
-
-
-if __name__ == "__main__":
-    main()

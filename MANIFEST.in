@@ -1,0 +1,2 @@
+include versioneer.py
+include src/mash/_version.py

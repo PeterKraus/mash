@@ -7,16 +7,48 @@ A program for generating guess structures of ABX<sub>3</sub> perovskites. Inspir
 
 ## Installation
 
-`mash` requires `mendeleev`, which can be installed using `pip`. Other than that, clone this repository, and run
-`mash` using `python mash.py`, which should print usage information:
+`mash` can be installed via `pip`. `mash` requires `mendeleev`, which can be also installed using `pip`. To install,
+clone this repository using `git` and build the package via `pip` using the following command:
+
+```
+(mash-test) PS C:\Users\Kraus\Code\mash\test> python -m pip install 'mash @ git+https://github.com/PeterKraus/mash'
+
+ [...]
+
+Successfully built mash
+Installing collected packages: [...], mendeleev, mash
+Successfully installed [...] mash-1.0.post0.dev6 mendeleev-0.12.1 [...]
+```
+
+
 
 ## Usage
 
+After the above command finished successfully, you can run `mash` using:
+
 ```
-(mash-dev) PS C:\Users\Kraus\Code\mash> python .\mash.py
+(mash-test) PS C:\Users\Kraus\Code\mash\test> mash
 usage: mash.py [-h] [--otype OTYPE] [--ofile OFILE] [--debug] [--glazer GLAZER] perovskite
 mash.py: error: the following arguments are required: perovskite
 ```
+
+A help command is also available:
+
+```
+(mash-test) PS C:\Users\Kraus\Code\mash\test> mash -h
+usage: mash [-h] [--otype OTYPE] [--ofile OFILE] [--debug] [--glazer GLAZER] perovskite
+
+positional arguments:
+  perovskite       Structural formula of the perovskite to be treated, i.e. [LaMnO3] or [LiMgF3]
+
+optional arguments:
+  -h, --help       show this help message and exit
+  --otype OTYPE    Output type: [cif, xyz, cp2k, qe]
+  --ofile OFILE    Output file prefix
+  --debug          Switch logging from info to debug level
+  --glazer GLAZER  Request a certain tilt mode: [none, a-a-a-, a+a+a+, a-b+a-]
+```
+
 
 `mash` asks you to provide at least one positional argument: `perovskite`, which is the unit formula (ABX<sub>3</sub>)
 of the perovskite that you want to model (e.g. `LaMnO3`). Another important parameter is the `--glazer` switch, which
